@@ -183,3 +183,17 @@ def searchprofile(request):
     else:
         message = "You haven't searched"
     return render(request, 'main/search.html', {'message': message})
+
+@login_required
+def follow_unfollow(request, pk):
+    if request.method=='POST':
+        my_profile=Profile.objects.get(user=request.user)
+        pk= request.POST.get('profile_pk')
+        obj=Profile.objects.get(pk=pk)
+
+        if obj.user in my_profile.following.all():
+            my_profile.following.remove(obj.user)
+        else:
+            my_profile.following.add(obj.user)
+        return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('profile-details')
