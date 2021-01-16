@@ -83,3 +83,23 @@ class UserListView(ListView):
 
     def get_queryset(self):
         return Profile.objects.all().exclude(user=self.request.user)
+
+class ProfileDetailView(DeleteView):
+    model=Profile
+    template_name='main/profile.html'
+    context_object_name='posts'
+
+    def get_object(self, **kwargs):
+        pk=self.kwargs.get('pk')
+        avi=Profile.objects.get(pk=pk)
+        return avi
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        avi=self.get_object()
+        myProf=Profile.objects.get(user=self.request.user)
+        if avi.user in myProf.following.all():
+            follow=True
+        else:
+            follow=False
+        context["follow"]=follow
+        return context
