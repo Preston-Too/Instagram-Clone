@@ -197,3 +197,20 @@ def follow_unfollow(request, pk):
             my_profile.following.add(obj.user)
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect('profile-details')
+
+def posts_following(request):
+    profile= Profile.objects.get(user=request.user)
+    users=[user for user in profile.following.all()]
+    posts=[]
+    qs=None
+
+    for u in users:
+        p=Profile.objects.get(user=u)
+        p_posts=p.profiles_posts()
+        posts.append(p_posts)
+    
+    my_posts=profile.profiles_posts()
+    posts.append(my_posts)
+    if len(posts)>0:
+        qs= sorted(chain(*posts), reverse=True, key=lambda obj: obj.pub_date)
+    return render(request, 'main/main.html', {"posts":qs, "profile":profile})
