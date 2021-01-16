@@ -39,3 +39,25 @@ def register(request):
         'profForm': profForm
     }
     return render(request, 'users/register.html', context)
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        useForm=UserUpdateForm(request.POST, instance=request.user)
+        profForm=ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if useForm.is_valid() and profForm.is_valid():
+            useForm.save()
+            profForm.save()
+            messages.success(request, f'Your account has been updated!')
+        return redirect('profile')
+    
+    else:
+        useForm=UserUpdateForm(instance=request.user.profile)
+        profForm=ProfileUpdateForm(instance=request.user.profile)
+
+    context={
+        'useForm':useForm,
+        'profForm':profForm
+    }
+
+    return render(request, 'users/profile.html', context)
