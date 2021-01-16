@@ -61,3 +61,25 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+@login_required(login_url='/accounts/login/')
+def index(request):
+    context={
+        'posts':Image.objects.all(),
+        'comments': Comment.objects.filter(image_id).all()
+    }
+
+    return render(request, 'index.html', context)
+class PostListView(ListView):
+    model = Image
+    template_name = 'index.html'
+    context_object_name = 'posts'
+    ordering = ['-pub_date']
+
+class UserListView(ListView):
+    model=Profile
+    template_name='posts/view.html'
+    context_object_name='posts'
+
+    def get_queryset(self):
+        return Profile.objects.all().exclude(user=self.request.user)
