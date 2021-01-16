@@ -168,3 +168,18 @@ def comment(request,id):
     else:
         form = CommentForm()
     return render(request,'posts/comment.html',{"form":form, "images":images, "comments":comments})
+
+@login_required
+def searchprofile(request): 
+    if 'searchUser' in request.GET and request.GET['searchUser']:
+        name = request.GET.get("searchUser")
+        searchResults = Profile.search_profile(name)
+        message = f'name'
+        params = {
+            'results': searchResults,
+            'message': message
+        }
+        return render(request, 'main/search.html', params)
+    else:
+        message = "You haven't searched"
+    return render(request, 'main/search.html', {'message': message})
