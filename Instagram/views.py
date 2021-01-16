@@ -149,3 +149,22 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user.profile == post.author:
             return True
         return False
+
+@login_required
+def comment(request,id):
+    comments= Comment.objects.filter(image_id=id).all()
+    images=Image.objects.filter(id=id)
+    current_user = request.user
+    user_profile = Profile.objects.get(user = current_user)
+    image = get_object_or_404(Image, id=id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit = False)
+            comment.image_id = image
+            comment.user_id = user_profile
+            comment.save()
+            return redirect('gram-landing')
+    else:
+        form = CommentForm()
+    return render(request,'posts/comment.html',{"form":form, "images":images, "comments":comments})
