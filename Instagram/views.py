@@ -214,3 +214,8 @@ def posts_following(request):
     if len(posts)>0:
         qs= sorted(chain(*posts), reverse=True, key=lambda obj: obj.pub_date)
     return render(request, 'main/main.html', {"posts":qs, "profile":profile})
+
+def like_image(request, pk):
+    post= get_object_or_404(Image, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
