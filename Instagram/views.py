@@ -103,3 +103,22 @@ class ProfileDetailView(DeleteView):
             follow=False
         context["follow"]=follow
         return context
+
+class PostDetailView(DetailView):
+    model = Image
+    template_name= 'posts/image_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context=super(PostDetailView, self).get_context_data(*args, **kwargs)
+        stuff=get_object_or_404(Image, id=self.kwargs['pk'])
+        total_likes=stuff.total_likes()
+        context["total_likes"]=total_likes
+        return context
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Image
+    fields = ['image', 'caption', 'name']
+    template_name='posts/postForm.html'
+    def form_valid(self, form):
+        form.instance.author = self.request.user.profile
+        return super().form_valid(form)
