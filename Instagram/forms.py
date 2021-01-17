@@ -25,3 +25,9 @@ class ImageUploadForm(forms.ModelForm):
     image = forms.ImageField(label = "Image:")
     name = forms.CharField(label = "Image Name:", max_length=50)
     caption = forms.CharField(label = "Image Caption:", max_length=300)
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['prof_pic', 'bio']
+
