@@ -67,3 +67,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user_id} :{self.comment}'
+
+class Follow(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+
+    def __str__(self):
+        return f'{self.follower} Follow' 
