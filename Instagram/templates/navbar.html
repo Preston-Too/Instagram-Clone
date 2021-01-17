@@ -1,0 +1,44 @@
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="{% url 'gram-landing' %}">Instagram</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{% url 'gram-landing' %}">Home</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            <form class="form-inline" action="{%url "search" %}">
+              <div class="md-form my-0">
+                  <input class="form-control mr-sm-5" type="text" placeholder="Search" name="searchUser"
+                      aria-label="Search">
+              </div>
+          </form>
+            <a class="nav-item nav-link" href="{% url 'user-posts' %}">Follow</a>
+            <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'registration' %}">Register</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+<main role="main" class="container">
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">
+      {{ message }}
+    </div>
+  {% endfor %}
+  {% endif %}
+  {% block content %}
+  {% endblock %}
+</main>
