@@ -1,0 +1,40 @@
+{%extends "users/base.html"%}
+{% load crispy_forms_tags %}
+{%load bootstrap3%}
+{% block content %}
+<div class="container" style="font-family: 'Jost', sans-serif;">
+    <div class="row">
+        <!-- Empty div -->
+        <div class="col-md-4">
+            <img src="https://ucarecdn.com/f0e65890-b403-4316-8068-d1dd58c8f80f/instagram.png" class="img-fluid mt-5">
+        </div>
+        <div class="col-md-4">
+            {% if form.errors %}
+            <p> Password or Username is incorrect </p>
+            {% endif %}
+            <div class="panel panel-default">
+
+                <div class="panel-body card p-5 mt-5">
+                    <h3 class="text-center">Sign In</h3>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Login">
+                        </div>
+                        <p class="container">you dont have an account? <a href="{% url 'registration' %}"> Sign Up</a></p>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- empty div -->
+    </div>
+</div>
+
+{% endblock %}
