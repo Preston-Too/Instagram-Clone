@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load cloudinary %}
+{% block content %}
+<div class="container" style="font-family: 'Jost', sans-serif;">
+    <div class="content-section">
+        <div class="media">
+            <img src="{{ user.profile.prof_pic.url }}" alt="img" class="rounded-circle border ml-3 mt-2  mr-3"
+                width="55" height="55">
+            <div class="media-body">
+                <h2 class="account-heading">{{ user.username }}</h2>
+                <p class="text-secondary">{{ user.email }}</p>
+            </div>
+        </div>
+        <!-- FORM HERE -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update Your Profile</legend>
+                {{useForm|crispy }}
+                {{profForm|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
