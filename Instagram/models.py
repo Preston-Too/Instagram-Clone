@@ -59,3 +59,11 @@ class Image(models.Model):
     
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk':self.pk})
+
+class Comment(models.Model):
+    user_id= models.ForeignKey(Profile, on_delete=models.CASCADE)
+    comment=models.CharField(max_length=200)
+    image_id=models.ForeignKey(Image,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user_id} :{self.comment}'
