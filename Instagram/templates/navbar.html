@@ -1,30 +1,30 @@
 <header class="site-header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-info">
       <div class="container">
-        <a class="navbar-brand mr-4" href="{% url 'gram-landing' %}">Instagram</a>
+        <a class="navbar-brand mr-4" href="{% url 'gram-landing' %}"><i class="fa fa-instagram" style="font-size: 30px;color: black"> | Instagram</i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarToggle">
           <div class="navbar-nav mr-auto">
-            <a class="nav-item nav-link" href="{% url 'gram-landing' %}">Home</a>
+            <a class="nav-item nav-link" style='font-size:20px;color:black;' href="{% url 'gram-landing' %}">Home</a>
           </div>
           <!-- Navbar Right Side -->
           <div class="navbar-nav">
             {% if user.is_authenticated %}
-            <form class="form-inline" action="{%url "search" %}">
+            <form class="form-inline" action="{%url 'search' %}">
               <div class="md-form my-0">
                   <input class="form-control mr-sm-5" type="text" placeholder="Search" name="searchUser"
                       aria-label="Search">
               </div>
           </form>
-            <a class="nav-item nav-link" href="{% url 'user-posts' %}">Follow</a>
-            <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
-            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-item nav-link" href="{% url 'user-posts' %}"><i class="fa fa-user-plus" style="font-size: 30px;color: black"></i></a>
+            <a class="nav-item nav-link" href="{% url 'post-create' %}"><i class="fa fa-upload" style="font-size: 30px;color: black"></i></a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}"><i class="fa fa-user" style="font-size:30px;color:black;"></i></a>
+            <a class="nav-item nav-link" style="font-size: 20px;color: black" href="{% url 'logout' %}">Logout</a>
             {% else %}
-            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-            <a class="nav-item nav-link" href="{% url 'registration' %}">Register</a>
+            <a class="nav-item nav-link" style="font-size: 20px;color: black" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" style="font-size: 20px;color: black" href="{% url 'registration' %}">Register</a>
             {% endif %}
           </div>
         </div>
