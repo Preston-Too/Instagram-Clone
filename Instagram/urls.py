@@ -7,6 +7,7 @@ from .views import (PostListView, PostDetailView, follow_unfollow,
     PostCreateView, PostUpdateView, PostDeleteView, UserListView, ProfileDetailView)
 
 urlpatterns = [
+    path('',views.index,name = 'home'),
     path('', PostListView.as_view(), name='gram-landing'),
     path('search/', views.searchprofile, name='search'),
     path('following/',views.posts_following, name='posts-follow-view'),
@@ -15,7 +16,7 @@ urlpatterns = [
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('register/',views.register, name='registration'),
     path('profile/',views.profile, name='profile'),
