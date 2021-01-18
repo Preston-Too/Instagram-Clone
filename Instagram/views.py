@@ -40,7 +40,7 @@ def register(request):
     }
     return render(request, 'users/register.html', context)
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def profile(request):
     if request.method == 'POST':
         useForm=UserUpdateForm(request.POST, instance=request.user)
@@ -66,7 +66,7 @@ def profile(request):
 def index(request):
     context={
         'posts':Image.objects.all(),
-        'comments': Comment.objects.filter(image_id).all()
+        'comments': Comment.objects.all()
     }
 
     return render(request, 'index.html', context)
@@ -150,7 +150,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def comment(request,id):
     comments= Comment.objects.filter(image_id=id).all()
     images=Image.objects.filter(id=id)
@@ -169,7 +169,7 @@ def comment(request,id):
         form = CommentForm()
     return render(request,'posts/comment.html',{"form":form, "images":images, "comments":comments})
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def searchprofile(request): 
     if 'searchUser' in request.GET and request.GET['searchUser']:
         name = request.GET.get("searchUser")
@@ -184,7 +184,7 @@ def searchprofile(request):
         message = "You haven't searched"
     return render(request, 'main/search.html', {'message': message})
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def follow_unfollow(request, pk):
     if request.method=='POST':
         my_profile=Profile.objects.get(user=request.user)
