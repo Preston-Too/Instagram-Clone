@@ -3,7 +3,7 @@
 [Preston-Too](https://github.com/Preston-Too)
 
 ## Live Link
-* [here] ()
+* [here] (https://flexgram.herokuapp.com/)
 
 ## Description
  Instagram-clone is an application developed using Django. This is an application that allows users to sign up, upload pictures,view other user's pictures,like them, comment on them and also follow the other users.
