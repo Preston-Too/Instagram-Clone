@@ -1,0 +1,1 @@
+web: gunicorn instagramClone.wsgi --log-file -
