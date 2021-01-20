@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Image, Profile, Follow, Comment
 from django.http import HttpRequest, HttpResponseRedirect
@@ -7,6 +9,7 @@ from django.contrib.auth.models import User
 from .forms import RegistrationForm, ProfileForm,ProfileUpdateForm, UserUpdateForm, ImageUploadForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from itertools import chain
 from django.urls import reverse
 from django.views.generic import (
@@ -36,7 +39,7 @@ def register(request):
         profForm=ProfileForm()
     context={
         'form':form,
-        'profForm': profForm
+        'profForm': profForm,
     }
     return render(request, 'users/register.html', context)
 
